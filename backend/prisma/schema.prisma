@@ -1,0 +1,29 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model DailyRecord {
+  id              Int      @id @default(autoincrement())
+  createdAt       DateTime @default(now())
+  energia         Int      // 1 to 10
+  estresse        Int      // 1 to 10
+  tedio           Int      // 1 to 10
+  clareza_mental  Int      // 1 to 10
+  impulso         Int      // 1 to 10
+  cedeu           Boolean
+  observacao      String?
+
+  @@map("daily_records")
+}
+
+model Settings {
+  id              Int      @id @default(1)
+  intervalHours   Int      @default(3)
+  startTime       String   @default("08:00")
+  endTime         String   @default("20:00")
+}
