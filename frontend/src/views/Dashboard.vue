@@ -2,7 +2,16 @@
   <div>
     <h1>Dashboard (Hoje)</h1>
     
-    <div v-if="stats" class="card">
+    <div v-if="loading" style="text-align: center; padding: 20px;">
+      Carregando dados...
+    </div>
+
+    <div v-else-if="error" style="text-align: center; padding: 20px; color: var(--danger); background: var(--bg-color); border-radius: 8px;">
+      {{ error }}
+      <div style="font-size: 0.8rem; margin-top: 10px;">Verifique se a API está online e o banco de dados configurado.</div>
+    </div>
+
+    <div v-else-if="stats" class="card">
       <div style="font-size: 2rem; font-weight: bold; margin-bottom: 5px; text-align: center;">
         {{ stats.count }} registros hoje
       </div>
@@ -15,7 +24,11 @@
       <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
         <div class="card" style="margin-bottom: 0; text-align: center;">
           <div style="font-size: 0.9rem; opacity: 0.7;">Energia Média</div>
-          <div style="font-size: 1.5rem; font-weight: bold;">{{ stats.avgEnergia.toFixed(1) }}</div>
+          <div style="font-size: 1.5rem; font-weight: bold; color: var(--primary);">{{ stats.avgEnergia.toFixed(1) }}</div>
+        </div>
+        <div class="card" style="margin-bottom: 0; text-align: center;">
+          <div style="font-size: 0.9rem; opacity: 0.7;">Estresse Médio</div>
+          <div style="font-size: 1.5rem; font-weight: bold; color: var(--danger);">{{ stats.avgEstresse.toFixed(1) }}</div>
         </div>
         <div class="card" style="margin-bottom: 0; text-align: center;">
           <div style="font-size: 0.9rem; opacity: 0.7;">Clareza Média</div>
@@ -31,10 +44,6 @@
         </div>
       </div>
     </div>
-    
-    <div v-else style="text-align: center; padding: 40px; opacity: 0.5;">
-      Carregando...
-    </div>
   </div>
 </template>
 
@@ -45,14 +54,19 @@ import { useMindStore } from '../store';
 
 const store = useMindStore();
 const stats = ref<any>(null);
+const loading = ref(true);
+const error = ref('');
 
 onMounted(async () => {
   try {
     const API_URL = import.meta.env.VITE_API_URL || '/api';
     const res = await axios.get(`${API_URL}/analytics/dashboard`);
     stats.value = res.data;
-  } catch (err) {
+  } catch (err: any) {
     console.error(err);
+    error.value = 'Falha ao conectar com o servidor.';
+  } finally {
+    loading.value = false;
   }
 });
 </script>

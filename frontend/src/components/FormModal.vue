@@ -44,7 +44,9 @@
           <input type="text" class="form-control" v-model="form.observacao" placeholder="Ex: Dormi mal, Trânsito..." />
         </div>
         
-        <button type="submit" class="btn btn-block" :disabled="form.cedeu === null">Salvar</button>
+        <button type="submit" class="btn btn-block" :disabled="form.cedeu === null || loading">
+          {{ loading ? 'Salvando...' : 'Salvar' }}
+        </button>
       </form>
     </div>
   </div>
@@ -56,6 +58,7 @@ import { useMindStore } from '../store';
 
 const emit = defineEmits(['close']);
 const store = useMindStore();
+const loading = ref(false);
 
 const form = ref({
   energia: 5,
@@ -68,8 +71,13 @@ const form = ref({
 });
 
 const submit = async () => {
-  if (form.value.cedeu === null) return;
-  await store.addRecord({ ...form.value });
-  emit('close');
+  if (form.value.cedeu === null || loading.value) return;
+  loading.value = true;
+  try {
+    await store.addRecord({ ...form.value });
+    emit('close');
+  } finally {
+    loading.value = false;
+  }
 };
 </script>
