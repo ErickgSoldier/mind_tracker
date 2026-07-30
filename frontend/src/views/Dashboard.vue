@@ -24,19 +24,19 @@
       <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
         <div class="card" style="margin-bottom: 0; text-align: center;">
           <div style="font-size: 0.9rem; opacity: 0.7;">Energia Média</div>
-          <div style="font-size: 1.5rem; font-weight: bold; color: var(--primary);">{{ stats.avgEnergia?.toFixed(1) || '0.0' }}</div>
+          <div style="font-size: 1.5rem; font-weight: bold; color: var(--primary);">{{ (stats.avgEnergia ?? 0).toFixed(1) }}</div>
         </div>
         <div class="card" style="margin-bottom: 0; text-align: center;">
           <div style="font-size: 0.9rem; opacity: 0.7;">Clareza Média</div>
-          <div style="font-size: 1.5rem; font-weight: bold;">{{ stats.avgClareza?.toFixed(1) || '0.0' }}</div>
+          <div style="font-size: 1.5rem; font-weight: bold;">{{ (stats.avgClareza ?? 0).toFixed(1) }}</div>
         </div>
         <div class="card" style="margin-bottom: 0; text-align: center;">
           <div style="font-size: 0.9rem; opacity: 0.7;">Impulso Médio</div>
-          <div style="font-size: 1.5rem; font-weight: bold;">{{ stats.avgImpulso?.toFixed(1) || '0.0' }}</div>
+          <div style="font-size: 1.5rem; font-weight: bold;">{{ (stats.avgImpulso ?? 0).toFixed(1) }}</div>
         </div>
         <div class="card" style="margin-bottom: 0; text-align: center;">
           <div style="font-size: 0.9rem; opacity: 0.7;">Cedeu (Vezes)</div>
-          <div style="font-size: 1.5rem; font-weight: bold; color: var(--danger);">{{ stats.cedeuCount || 0 }}</div>
+          <div style="font-size: 1.5rem; font-weight: bold; color: var(--danger);">{{ stats.cedeuCount ?? 0 }}</div>
         </div>
       </div>
     </div>

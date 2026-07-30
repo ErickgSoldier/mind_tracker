@@ -50,9 +50,10 @@ export default defineConfig({
         display: 'standalone',
         orientation: 'portrait',
         icons: [
-          { src: 'pwa-192x192.png', sizes: '192x192', type: 'image/png' },
-          { src: 'pwa-512x512.png', sizes: '512x512', type: 'image/png' },
-          { src: 'pwa-512x512.png', sizes: '512x512', type: 'image/png', purpose: 'maskable' }
+          { src: 'favicon.svg', sizes: 'any', type: 'image/svg+xml' },
+          { src: 'favicon.svg', sizes: '192x192', type: 'image/svg+xml' },
+          { src: 'favicon.svg', sizes: '512x512', type: 'image/svg+xml' },
+          { src: 'favicon.svg', sizes: '512x512', type: 'image/svg+xml', purpose: 'maskable' }
         ],
         shortcuts: [
           {
@@ -60,20 +61,20 @@ export default defineConfig({
             short_name: "Registrar",
             description: "Abre o formulário de estado mental",
             url: "/",
-            icons: [{ src: "pwa-192x192.png", sizes: "192x192" }]
+            icons: [{ src: "favicon.svg", sizes: "192x192", type: 'image/svg+xml' }]
           }
         ],
         screenshots: [
           {
-            src: "pwa-512x512.png",
+            src: "favicon.svg",
             sizes: "512x512",
-            type: "image/png",
+            type: "image/svg+xml",
             form_factor: "wide"
           },
           {
-            src: "pwa-512x512.png",
+            src: "favicon.svg",
             sizes: "512x512",
-            type: "image/png",
+            type: "image/svg+xml",
             form_factor: "narrow"
           }
         ]
